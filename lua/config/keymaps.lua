@@ -19,7 +19,19 @@ map("t", "jk", "<C-\\><C-n>", { desc = "Exit terminal mode" })
 -- Next.js/React Development Keymaps
 -- ============================================
 
--- Quick navigation to project folders
+map("n", "<leader>sr", ":split | terminal racket %<CR>", { desc = "Run Scheme file" })
+map("n", "<leader>sR", ":vsplit | terminal racket %<CR>", { desc = "Run Scheme file (vsplit)" })
+
+-- Open Scheme REPL
+map("n", "<leader>si", ":split | terminal racket -i -l xrepl<CR>", { desc = "Open Scheme REPL" })
+map("n", "<leader>sI", ":vsplit | terminal racket -i -l xrepl<CR>", { desc = "Open Scheme REPL (vsplit)" })
+
+-- Quick evaluate (saves and runs file)
+map("n", "<leader>se", ":w | !racket %<CR>", { desc = "Evaluate Scheme file" })
+
+-- Load current file in REPL (assuming REPL is open in terminal)
+map("n", "<leader>sl", ':call feedkeys("(load \\"" . expand("%") . "\\")\\<CR>")<CR>', { desc = "Load file in REPL" })
+
 map("n", "<leader>pc", "<cmd>Telescope find_files cwd=src/components<cr>", { desc = "Find Components" })
 map("n", "<leader>pa", "<cmd>Telescope find_files cwd=src/app<cr>", { desc = "Find App Routes" })
 map("n", "<leader>pl", "<cmd>Telescope find_files cwd=src/lib<cr>", { desc = "Find Lib Files" })
