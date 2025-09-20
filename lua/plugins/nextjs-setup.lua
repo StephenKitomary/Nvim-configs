@@ -1,4 +1,4 @@
--- Next.js/React specific configuration
+
 return {
   -- Configure TypeScript server for Next.js
   {
@@ -88,7 +88,7 @@ return {
     config = true,
   },
 
-  -- Show colors in code (for Tailwind)
+  
   {
     "NvChad/nvim-colorizer.lua",
     ft = { "css", "javascript", "typescript", "typescriptreact", "javascriptreact", "html" },
@@ -102,7 +102,6 @@ return {
     },
   },
 
-  -- Package.json info - THIS IS ALL YOU NEED FOR NPM PACKAGES
   {
     "vuki656/package-info.nvim",
     dependencies = "MunifTanjim/nui.nvim",
@@ -161,7 +160,7 @@ return {
     },
   },
 
-  -- Configure Prettier to work with our setup
+  -- prettier configs for my nvim
   {
     "stevearc/conform.nvim",
     opts = {
@@ -203,7 +202,7 @@ return {
     end,
   },
 
-  -- 🔥 ES7+ React Snippets
+  -- 🔥 
   {
     "L3MON4D3/LuaSnip",
     dependencies = {
@@ -216,12 +215,12 @@ return {
       local i = ls.insert_node
       local f = ls.function_node
 
-      -- Helper to get filename
+      
       local function filename()
         return vim.fn.expand("%:t:r")
       end
 
-      -- ES7+ React Snippets for TypeScript
+      
       ls.add_snippets("typescriptreact", {
         -- rafce
         s("rafce", {
@@ -268,10 +267,10 @@ return {
         }),
       })
 
-      -- Also add snippets to JavaScript files
+      
       ls.add_snippets("javascriptreact", ls.get_snippets("typescriptreact"))
 
-      -- Setup Tab navigation
+      
       vim.keymap.set({ "i", "s" }, "<Tab>", function()
         if ls.expand_or_jumpable() then
           ls.expand_or_jump()
@@ -288,12 +287,11 @@ return {
     end,
   },
 
-  -- 🔥 Open in GitHub (useful for checking docs)
+  
   {
     "almo7aya/openingh.nvim",
     cmd = { "OpenInGHRepo", "OpenInGHFile", "OpenInGHFileLines" },
   },
 
-  -- ❌ REMOVED cmp-npm - IT WAS CAUSING THE ERROR
-  -- The package-info.nvim plugin above already handles everything we need
+  
 }
