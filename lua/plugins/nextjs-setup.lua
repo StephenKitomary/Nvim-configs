@@ -1,4 +1,3 @@
-
 return {
   -- Configure TypeScript server for Next.js
   {
@@ -74,11 +73,14 @@ return {
   {
     "windwp/nvim-ts-autotag",
     event = "VeryLazy",
-    opts = {
-      enable_close = true,
-      enable_rename = true,
-      enable_close_on_slash = true,
-    },
+    -- This is the new, correct configuration structure:
+    config = function()
+      require("nvim-ts-autotag").setup({
+        enable_close = true,
+        enable_rename = true,
+        enable_close_on_slash = true,
+      })
+    end,
   },
 
   -- Better TypeScript errors
@@ -88,7 +90,6 @@ return {
     config = true,
   },
 
-  
   {
     "NvChad/nvim-colorizer.lua",
     ft = { "css", "javascript", "typescript", "typescriptreact", "javascriptreact", "html" },
@@ -202,7 +203,7 @@ return {
     end,
   },
 
-  -- 🔥 
+  -- 🔥
   {
     "L3MON4D3/LuaSnip",
     dependencies = {
@@ -215,12 +216,10 @@ return {
       local i = ls.insert_node
       local f = ls.function_node
 
-      
       local function filename()
         return vim.fn.expand("%:t:r")
       end
 
-      
       ls.add_snippets("typescriptreact", {
         -- rafce
         s("rafce", {
@@ -267,10 +266,8 @@ return {
         }),
       })
 
-      
       ls.add_snippets("javascriptreact", ls.get_snippets("typescriptreact"))
 
-      
       vim.keymap.set({ "i", "s" }, "<Tab>", function()
         if ls.expand_or_jumpable() then
           ls.expand_or_jump()
@@ -287,11 +284,8 @@ return {
     end,
   },
 
-  
   {
     "almo7aya/openingh.nvim",
     cmd = { "OpenInGHRepo", "OpenInGHFile", "OpenInGHFileLines" },
   },
-
-  
 }

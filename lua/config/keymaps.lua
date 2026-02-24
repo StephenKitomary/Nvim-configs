@@ -16,21 +16,30 @@ map("c", "jk", "<C-C>", { desc = "Exit command mode" })
 map("t", "jk", "<C-\\><C-n>", { desc = "Exit terminal mode" })
 
 -- ============================================
--- Next.js/React Development Keymaps
+-- Racket/Scheme Development with Conjure
 -- ============================================
 
-map("n", "<leader>sr", ":split | terminal racket %<CR>", { desc = "Run Scheme file" })
-map("n", "<leader>sR", ":vsplit | terminal racket %<CR>", { desc = "Run Scheme file (vsplit)" })
+-- Start/Connect REPL
+map("n", "<leader>sr", "<cmd>ConjureConnect<CR>", { desc = "Start Racket REPL" })
 
--- Open Scheme REPL
-map("n", "<leader>si", ":split | terminal racket -i -l xrepl<CR>", { desc = "Open Scheme REPL" })
-map("n", "<leader>sI", ":vsplit | terminal racket -i -l xrepl<CR>", { desc = "Open Scheme REPL (vsplit)" })
+-- Evaluate different scopes
+map("n", "<leader>se", "<cmd>ConjureEvalFile<CR>", { desc = "Evaluate entire file" })
+map("n", "<leader>sf", "<cmd>ConjureEvalCurrentForm<CR>", { desc = "Evaluate current form" })
+map("n", "<leader>sF", "<cmd>ConjureEvalRootForm<CR>", { desc = "Evaluate root form" })
+map("n", "<leader>sw", "<cmd>ConjureEvalWord<CR>", { desc = "Eval word at cursor" })
+map("v", "<leader>se", "<cmd>ConjureEvalVisual<CR>", { desc = "Evaluate selection" })
 
--- Quick evaluate (saves and runs file)
-map("n", "<leader>se", ":w | !racket %<CR>", { desc = "Evaluate Scheme file" })
+-- Evaluate and comment
+map("n", "<leader>sc", "<cmd>ConjureEvalCommentCurrentForm<CR>", { desc = "Eval and comment form" })
 
--- Load current file in REPL (assuming REPL is open in terminal)
-map("n", "<leader>sl", ':call feedkeys("(load \\"" . expand("%") . "\\")\\<CR>")<CR>', { desc = "Load file in REPL" })
+-- REPL log management
+map("n", "<leader>sl", "<cmd>ConjureLogVSplit<CR>", { desc = "Open REPL log (vsplit)" })
+map("n", "<leader>sL", "<cmd>ConjureLogSplit<CR>", { desc = "Open REPL log (split)" })
+map("n", "<leader>st", "<cmd>ConjureLogToggle<CR>", { desc = "Toggle REPL log" })
+map("n", "<leader>sx", "<cmd>ConjureLogResetSoft<CR>", { desc = "Clear REPL log" })
+
+-- Navigation
+map("n", "gd", "<cmd>lua vim.lsp.buf.definition()<CR>", { desc = "Go to definition" })
 
 map("n", "<leader>pc", "<cmd>Telescope find_files cwd=src/components<cr>", { desc = "Find Components" })
 map("n", "<leader>pa", "<cmd>Telescope find_files cwd=src/app<cr>", { desc = "Find App Routes" })

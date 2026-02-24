@@ -1,3 +1,6 @@
+-- ============================================================================
+-- 1. BOOTSTRAPPING LAZY.NVIM
+-- ============================================================================
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not (vim.uv or vim.loop).fs_stat(lazypath) then
   local lazyrepo = "https://github.com/folke/lazy.nvim.git"
@@ -14,35 +17,47 @@ if not (vim.uv or vim.loop).fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
+-- ============================================================================
+-- 2. LAZY.NVIM SETUP
+-- ============================================================================
 require("lazy").setup({
   spec = {
-    -- add LazyVim and import its plugins
+    -- 🚨 IMPORTANT: Replace LazyVim's default theme setting with your preferred theme.
+    -- We will define the theme in a separate plugin spec below.
     { "LazyVim/LazyVim", import = "lazyvim.plugins" },
-    -- import/override with your plugins
+
+    -- Load your custom plugins from the 'plugins' directory (e.g., plugins/webdev.lua)
     { import = "plugins" },
+
+    -- ========================================================================
+    -- 3. THEME PLUGINS (For TSX Highlighting Fix)
+    -- This section adds a Tree-sitter supported Nord theme and sets it.
+    -- ========================================================================
+    {
+      "shaunsingh/nord.nvim", -- A known Nord theme with Treesitter support
+      lazy = false, -- Load immediately at startup
+      priority = 1000, -- Load first
+      config = function()
+        -- You can configure Nord variables here if needed
+        vim.g.nord_italic = true
+        vim.cmd.colorscheme("nord")
+      end,
+    },
   },
   defaults = {
-    -- By default, only LazyVim plugins will be lazy-loaded. Your custom plugins will load during startup.
-    -- If you know what you're doing, you can set this to `true` to have all your custom plugins lazy-loaded by default.
     lazy = false,
-    -- It's recommended to leave version=false for now, since a lot the plugin that support versioning,
-    -- have outdated releases, which may break your Neovim install.
-    version = false, -- always use the latest git commit
-    -- version = "*", -- try installing the latest stable version for plugins that support semver
+    version = false,
   },
-  install = { colorscheme = { "tokyonight", "habamax" } },
+  -- Remove default 'tokyonight' install, as we are explicitly setting 'nord' above
+  install = { colorscheme = { "nord", "habamax" } },
   checker = {
-    enabled = true, -- check for plugin updates periodically
-    notify = false, -- notify on update
-  }, -- automatically check for plugin updates
+    enabled = true,
+    notify = false,
+  },
   performance = {
     rtp = {
-      -- disable some rtp plugins
       disabled_plugins = {
         "gzip",
-        -- "matchit",
-        -- "matchparen",
-        -- "netrwPlugin",
         "tarPlugin",
         "tohtml",
         "tutor",
